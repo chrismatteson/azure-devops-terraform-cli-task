@@ -1,32 +1,85 @@
 {
     "manifestVersion": 1,
-    "id": "TerraformCli",
-    "name": "Terraform CLI ",
-    "version": "0.1.52",
-    "publisher": "jlorich",
+    "id": "Terraform",
+    "name": "Terraform",
+    "version": "0.0.1",
+    "publisher": "cmatteson",
+    "public": false,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Task for running authorized terraform commands against an Azure ARM Service Connection",
+    "description": "Collection of Tasks for running terraform commands against an Azure ARM Service Connection",
     "categories": [
         "Azure Pipelines"
     ],
     "files": [
         {
-            "path": "TerraformCli"
+            "path": "TerraformInit"
+        },
+        {
+            "path": "TerraformValidate"
+        },
+        {
+            "path": "TerraformFmtCheck"
+        },
+        {
+            "path": "TerraformPlan"
+        },
+        {
+            "path": "TerraformApply"
         }
     ],
     "contributions": [
         {
-            "id": "5619d23d-fb03-4459-a295-5958fd240452",
+            "id": "TerraformInit",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "TerraformCli"
+                "name": "TerraformInit"
+            }
+        },
+        {
+            "id": "TerraformValidate",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "TerraformValidate"
+            }
+        },
+        {
+            "id": "TerraformFmtCheck",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "TerraformFmtCheck"
+            }
+        },
+        {
+            "id": "TerraformPlan",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "TerraformPlan"
+            }
+        },
+        {
+            "id": "TerraformApply",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "TerraformApply"
             }
         }
     ]

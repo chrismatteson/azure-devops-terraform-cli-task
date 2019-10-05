@@ -1,15 +1,15 @@
 {
     "id": "5619d23d-fb03-4459-a295-5958fd240452",
-    "name": "TerraformCli",
-    "friendlyName": "Terraform CLI",
-    "description": "A task for running authenticated Terraform commands against Azure",
+    "name": "TerraformValidate",
+    "friendlyName": "Terraform Validate",
+    "description": "A task for running Terraform validate to check for valid Terraform code",
     "helpMarkDown": "",
     "category": "Utility",
-    "author": "jlorich",
+    "author": "hashicorp",
     "version": {
         "Major": 0,
-        "Minor": 1,
-        "Patch": 52
+        "Minor": 0,
+        "Patch": 1
     },
     "instanceNameFormat": "Terraform",
     "groups": [
@@ -18,11 +18,6 @@
             "displayName": "Terraform Initialization",
             "isExpanded": true,
             "visibleRule": "initialize = true"
-        },
-        {
-            "name": "script",
-            "displayName": "Script",
-            "isExpanded": true
         },
         {
             "name": "advanced",
@@ -43,44 +38,6 @@
             "properties": {
                 "EndpointFilterRule": "ScopeLevel != ManagementGroup"
             }
-        },
-        {
-            "name": "scriptLocation",
-            "type": "pickList",
-            "label": "Script Location",
-            "defaultValue": "inlineScript",
-            "required": false,
-            "helpMarkDown": "Type of script: File path or Inline script",
-            "options": {
-                "inlineScript": "Inline script",
-                "scriptPath": "Script path"
-            },
-            "groupName": "script"
-        },
-        {
-            "name": "scriptPath",
-            "type": "filePath",
-            "label": "Script Path",
-            "defaultValue": "",
-            "required": false,
-            "visibleRule": "scriptLocation = scriptPath",
-            "helpMarkDown": "Fully qualified path of the script(.bat or .cmd when using Windows based agent and .sh when using linux based agent) or a path relative to the the default working directory",
-            "groupName": "script"
-        },
-        {
-            "name": "script",
-            "type": "multiLine",
-            "label": "Inline Script",
-            "defaultValue": "",
-            "required": false,
-            "visibleRule": "scriptLocation = inlineScript",
-            "helpMarkDown": "You can write your terraform scripts inline here",
-            "properties": {
-                "resizable": "true",
-                "rows": "10",
-                "maxLength": "5000"
-            },
-            "groupName": "script"
         },
         {
             "name": "initialize",

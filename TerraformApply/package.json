@@ -27,8 +27,8 @@
     "@types/q": "^1.5.2",
     "copyfiles": "^2.1.0",
     "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.18.0",
     "tfx-cli": "^0.6.4",
-    "typescript": "^3.3.3333",
-    "mocha-junit-reporter": "^1.18.0"
+    "typescript": "^3.6.3"
   }
 }

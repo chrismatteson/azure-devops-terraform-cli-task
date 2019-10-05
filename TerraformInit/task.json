@@ -1,0 +1,139 @@
+{
+    "id": "5619d23d-fb03-4459-a295-5958fd240452",
+    "name": "TerraformInit",
+    "friendlyName": "Terraform Init",
+    "description": "A task for running Terraform init to prepare Terraform for other commands",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "hashicorp",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Terraform",
+    "groups": [
+        {
+            "name": "init",
+            "displayName": "Terraform Initialization",
+            "isExpanded": true
+        },
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "connectedServiceName",
+            "aliases": [
+                "targetAzureSubscription"
+            ],
+            "type": "connectedService:AzureRM",
+            "label": "Target Azure subscription",
+            "required": true,
+            "helpMarkDown": "Select an Azure resource manager subscription to run Terraform against",
+            "properties": {
+                "EndpointFilterRule": "ScopeLevel != ManagementGroup"
+            }
+        },
+        {
+            "name": "useTargetSubscriptionForBackend",
+            "type": "bool",
+            "label": "Use target subscription for backend",
+            "defaultValue": "true",
+            "required": false,
+            "helpMarkDown": "Uses the target subscription to connect to the azurerm storage backend",
+            "groupName": "init"
+        },
+        {
+            "name": "targetStorageAccountName",
+            "type": "pickList",
+            "label": "Azure Storage Account",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Specify a pre-existing ARM storage account. It will be used to store your backend Terraform state.",
+            "properties": {
+                "EditableOptions": "True"
+            },
+            "visibleRule": "useTargetSubscriptionForBackend = true",
+            "groupName": "init"
+        },
+        {
+            "name": "backendConnectedServiceName",
+            "aliases": [
+                "backendAzureSubscription"
+            ],
+            "type": "connectedService:AzureRM",
+            "label": "Backend Azure subscription",
+            "required": false,
+            "helpMarkDown": "Select an Azure resource manager subscription to run Terraform against",
+            "properties": {
+                "EndpointFilterRule": "ScopeLevel != ManagementGroup"
+            },
+            "visibleRule": "useTargetSubscriptionForBackend = false",
+            "groupName": "init"
+        },
+        {
+            "name": "backendStorageAccountName",
+            "type": "pickList",
+            "label": "Azure Storage Account",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Specify a pre-existing ARM storage account. It will be used to store your backend Terraform state.",
+            "properties": {
+                "EditableOptions": "True"
+            },
+            "visibleRule": "useTargetSubscriptionForBackend = false",
+            "groupName": "init"
+        },
+        {
+            "name": "backendContainerName",
+            "type": "string",
+            "label": "Container name",
+            "defaultValue": "tfstate",
+            "required": false,
+            "helpMarkDown": "Name of the container to keep the Terraform state",
+            "groupName": "init"
+        },
+        {
+            "name": "backendStateFileKey",
+            "type": "string",
+            "label": "Key",
+            "defaultValue": "terraform.tfstate",
+            "required": false,
+            "helpMarkDown": "Name of the state file to use in the Terraform backend.",
+            "groupName": "init"
+        },
+        {
+            "name": "cwd",
+            "aliases": [
+                "workingDirectory"
+            ],
+            "type": "filePath",
+            "label": "Working Directory",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Current working directory where the script is run.  Empty is the root of the repo (build) or artifacts (release), which is $(System.DefaultWorkingDirectory)",
+            "groupName": "advanced"
+        }
+    ],
+    "dataSourceBindings": [
+        {
+            "target": "targetStorageAccountName",
+            "endpointId": "$(connectedServiceName)",
+            "dataSourceName": "AzureStorageAccountRMandClassic"
+        },
+        {
+            "target": "backendStorageAccountName",
+            "endpointId": "$(backendConnectedServiceName)",
+            "dataSourceName": "AzureStorageAccountRMandClassic"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": ".bin/index.js"
+        }
+    }
+}
